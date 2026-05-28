@@ -189,19 +189,19 @@
               
           <div>
             <label class="inp-lbl">Sepal Length Cm</label>
-            <input type="number" name="SepalLengthCm" class="inp" placeholder="e.g. 0" step="any" min="0">
+            <input type="number" name="SepalLengthCm" class="inp" placeholder="e.g. 0" step="any" min="0" required>
           </div>
           <div>
             <label class="inp-lbl">Sepal Width Cm</label>
-            <input type="number" name="SepalWidthCm" class="inp" placeholder="e.g. 0" step="any" min="0">
+            <input type="number" name="SepalWidthCm" class="inp" placeholder="e.g. 0" step="any" min="0" required>
           </div>
           <div>
             <label class="inp-lbl">Petal Length Cm</label>
-            <input type="number" name="PetalLengthCm" class="inp" placeholder="e.g. 0" step="any" min="0">
+            <input type="number" name="PetalLengthCm" class="inp" placeholder="e.g. 0" step="any" min="0" required>
           </div>
           <div>
             <label class="inp-lbl">Petal Width Cm</label>
-            <input type="number" name="PetalWidthCm" class="inp" placeholder="e.g. 0" step="any" min="0">
+            <input type="number" name="PetalWidthCm" class="inp" placeholder="e.g. 0" step="any" min="0" required>
           </div>
             </div>
             <button type="submit" class="btn-predict" id="pBtn">
@@ -364,6 +364,10 @@
         summary.push([lbl, v]);
       }
     });
+    if (Object.keys(payload).length === 0) {
+      showError('Please fill in at least one field before predicting.');
+      return;
+    }
 
     pBtn.disabled = true;
     btnTxt.innerHTML = '<span class="spinner"></span>Predicting…';
