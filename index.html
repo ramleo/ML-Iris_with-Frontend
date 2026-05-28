@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ml Iris With Frontend</title>
+  <title>Iris Species Classifier</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -151,10 +151,10 @@
       <div style="max-width:1024px;margin:0 auto;padding:64px 24px;text-align:center;color:#fff">
         <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:99px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(8px);font-size:.85rem;font-weight:600;margin-bottom:20px">
           <span style="width:8px;height:8px;border-radius:50%;background:#4ade80;display:inline-block"></span>
-          ML Model &nbsp;&middot;&nbsp; Botanical
+          Botanical
         </div>
         <h1 class="hero-h1" style="font-size:2.8rem;font-weight:900;letter-spacing:-0.5px;margin-bottom:14px;text-shadow:0 2px 24px rgba(0,0,0,.55)">
-          Ml Iris With Frontend
+          Iris Species Classifier
         </h1>
         <p style="color:rgba(255,255,255,.75);font-size:1.05rem;max-width:480px;margin:0 auto;text-shadow:0 1px 8px rgba(0,0,0,.4)">
           AI-powered botanical species classification
@@ -180,7 +180,7 @@
             <div style="width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#7b1fa2,#9c27b0);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;box-shadow:0 4px 12px rgba(0,0,0,.3)">⚗</div>
             <div>
               <div style="color:#fff;font-weight:700;font-size:1.05rem">Feature Inputs</div>
-              <div style="color:rgba(255,255,255,.38);font-size:.82rem">Enter values to get a prediction</div>
+              <div style="color:rgba(255,255,255,.38);font-size:.82rem">Enter your feature values below</div>
             </div>
           </div>
 
@@ -188,23 +188,19 @@
             <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;margin-bottom:20px">
               
           <div>
-            <label class="inp-lbl">Id</label>
-            <input type="number" name="Id" class="inp" placeholder="e.g. 0" step="any">
-          </div>
-          <div>
-            <label class="inp-lbl">Sepallengthcm</label>
+            <label class="inp-lbl">Sepal Length Cm</label>
             <input type="number" name="SepalLengthCm" class="inp" placeholder="e.g. 0" step="any">
           </div>
           <div>
-            <label class="inp-lbl">Sepalwidthcm</label>
+            <label class="inp-lbl">Sepal Width Cm</label>
             <input type="number" name="SepalWidthCm" class="inp" placeholder="e.g. 0" step="any">
           </div>
           <div>
-            <label class="inp-lbl">Petallengthcm</label>
+            <label class="inp-lbl">Petal Length Cm</label>
             <input type="number" name="PetalLengthCm" class="inp" placeholder="e.g. 0" step="any">
           </div>
           <div>
-            <label class="inp-lbl">Petalwidthcm</label>
+            <label class="inp-lbl">Petal Width Cm</label>
             <input type="number" name="PetalWidthCm" class="inp" placeholder="e.g. 0" step="any">
           </div>
             </div>
@@ -217,12 +213,12 @@
             <div style="color:rgba(255,255,255,.25);font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px">About this model</div>
             <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
               <div class="mini-stat">
-                <div style="color:rgba(255,255,255,.35);font-size:.7rem;margin-bottom:4px">Task</div>
-                <div style="color:#fff;font-weight:600;font-size:.82rem">Classification</div>
+                <div style="color:rgba(255,255,255,.35);font-size:.7rem;margin-bottom:4px">Algorithm</div>
+                <div style="color:#fff;font-weight:600;font-size:.82rem">Random Forest</div>
               </div>
               <div class="mini-stat">
-                <div style="color:rgba(255,255,255,.35);font-size:.7rem;margin-bottom:4px">Features</div>
-                <div style="color:#fff;font-weight:600;font-size:.82rem">5</div>
+                <div style="color:rgba(255,255,255,.35);font-size:.7rem;margin-bottom:4px">Accuracy</div>
+                <div style="color:#4ade80;font-weight:700;font-size:.82rem">96.7%</div>
               </div>
               <div class="mini-stat">
                 <div style="color:rgba(255,255,255,.35);font-size:.7rem;margin-bottom:4px">Classes</div>
@@ -404,7 +400,7 @@
   });
 
   function showResult(data, summary) {
-    resVal.textContent = data.prediction;
+    resVal.textContent = IS_CLASS ? _fmt(String(data.prediction)) : data.prediction;
 
     if (IS_CLASS && data.probabilities) {
       var probs  = Array.isArray(data.probabilities) ? data.probabilities : Object.values(data.probabilities);
@@ -417,6 +413,7 @@
       probBars.innerHTML = '';
       var pairs = labels.map(function(l,i){ return {l:l, p:probs[i]||0}; })
                         .sort(function(a,b){ return b.p - a.p; });
+      function _fmt(s){return s.replace(/[-_]/g,' ').replace(/\b\w/g,function(c){return c.toUpperCase();});}
       pairs.forEach(function(item) {
         var pct   = (item.p * 100).toFixed(1);
         var isTop = item.p === maxP;
@@ -425,7 +422,7 @@
         d.innerHTML =
           '<div style="display:flex;justify-content:space-between;margin-bottom:5px">' +
             '<span style="font-size:.85rem;font-weight:' + (isTop ? '600' : '400') +
-            ';color:rgba(255,255,255,' + (isTop ? '.9' : '.45') + ')">' + item.l + '</span>' +
+            ';color:rgba(255,255,255,' + (isTop ? '.9' : '.45') + ')">' + _fmt(item.l) + '</span>' +
             '<span style="font-size:.85rem;font-weight:700;color:rgba(255,255,255,' + (isTop ? '.95' : '.35') + ')">' + pct + '%</span>' +
           '</div>' +
           '<div class="conf-track"><div class="conf-fill" data-p="' + pct + '" style="width:0"></div></div>';
