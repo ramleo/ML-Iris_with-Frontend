@@ -400,6 +400,7 @@
   });
 
   function showResult(data, summary) {
+    function _fmt(s){return s.replace(/[-_]/g,' ').replace(/\b\w/g,function(c){return c.toUpperCase();});}
     resVal.textContent = IS_CLASS ? _fmt(String(data.prediction)) : data.prediction;
 
     if (IS_CLASS && data.probabilities) {
@@ -413,7 +414,6 @@
       probBars.innerHTML = '';
       var pairs = labels.map(function(l,i){ return {l:l, p:probs[i]||0}; })
                         .sort(function(a,b){ return b.p - a.p; });
-      function _fmt(s){return s.replace(/[-_]/g,' ').replace(/\b\w/g,function(c){return c.toUpperCase();});}
       pairs.forEach(function(item) {
         var pct   = (item.p * 100).toFixed(1);
         var isTop = item.p === maxP;
