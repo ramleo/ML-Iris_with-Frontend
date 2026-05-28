@@ -189,19 +189,19 @@
               
           <div>
             <label class="inp-lbl">Sepal Length Cm</label>
-            <input type="number" name="SepalLengthCm" class="inp" placeholder="e.g. 0" step="any">
+            <input type="number" name="SepalLengthCm" class="inp" placeholder="e.g. 0" step="any" min="0">
           </div>
           <div>
             <label class="inp-lbl">Sepal Width Cm</label>
-            <input type="number" name="SepalWidthCm" class="inp" placeholder="e.g. 0" step="any">
+            <input type="number" name="SepalWidthCm" class="inp" placeholder="e.g. 0" step="any" min="0">
           </div>
           <div>
             <label class="inp-lbl">Petal Length Cm</label>
-            <input type="number" name="PetalLengthCm" class="inp" placeholder="e.g. 0" step="any">
+            <input type="number" name="PetalLengthCm" class="inp" placeholder="e.g. 0" step="any" min="0">
           </div>
           <div>
             <label class="inp-lbl">Petal Width Cm</label>
-            <input type="number" name="PetalWidthCm" class="inp" placeholder="e.g. 0" step="any">
+            <input type="number" name="PetalWidthCm" class="inp" placeholder="e.g. 0" step="any" min="0">
           </div>
             </div>
             <button type="submit" class="btn-predict" id="pBtn">
@@ -387,9 +387,9 @@
       var msg = err.message || String(err);
       if (msg.indexOf('Failed to fetch') !== -1 || msg.indexOf('NetworkError') !== -1
           || msg.indexOf('ERR_CONNECTION_REFUSED') !== -1 || err instanceof TypeError) {
-        msg = '⚠ Cannot reach the API server.\nMake sure uvicorn is running:\n    uvicorn app:app --reload';
-        srvDot.className = 'srv-dot offline';
-        srvTxt.textContent = 'Server offline';
+        msg = '⚠ Cannot reach the API server.\nThe server may have gone to sleep — please wait a moment.';
+        setServerState('offline', 'Server offline — retrying…');
+        if (!_healthTimer) _healthTimer = setInterval(checkServer, 5000);
       }
       showError(msg);
     })
