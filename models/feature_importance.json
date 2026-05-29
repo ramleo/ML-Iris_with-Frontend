@@ -1,0 +1,22 @@
+[
+  {
+    "feature": "num__Id",
+    "importance": 1.0
+  },
+  {
+    "feature": "num__PetalWidthCm",
+    "importance": 0.9057
+  },
+  {
+    "feature": "num__PetalLengthCm",
+    "importance": 0.6824
+  },
+  {
+    "feature": "num__SepalLengthCm",
+    "importance": 0.3896
+  },
+  {
+    "feature": "num__SepalWidthCm",
+    "importance": 0.3675
+  }
+]
