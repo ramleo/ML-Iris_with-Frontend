@@ -310,7 +310,7 @@
             <input type="number" name="PetalWidthCm" class="inp" placeholder="e.g. 0" step="any" min="0" required>
           </div>
             </div>
-            <button type="submit" class="btn-predict" id="pBtn">
+            <div style="display:flex;gap:8px;margin-bottom:10px"><button type="button" onclick="fillSample()" style="flex:1;padding:9px 0;background:rgba(41,121,255,.15);border:1px solid rgba(41,121,255,.35);border-radius:10px;color:#2979ff;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s">⚡ Fill Sample</button><button type="button" onclick="clearAllFields()" style="flex:1;padding:9px 0;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:10px;color:rgba(255,255,255,.6);font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s">Clear</button></div><button type="submit" class="btn-predict" id="pBtn">
               <span id="btnTxt">Predict</span>
             </button>
           </form>
@@ -425,6 +425,7 @@
 <script>
   var IS_CLASS = true;
   var CLASSES  = ["Iris-setosa", "Iris-versicolor", "Iris-virginica"];
+  var SAMPLE_DATA = {"SepalLengthCm": 5.1, "SepalWidthCm": 3.5, "PetalLengthCm": 1.4, "PetalWidthCm": 0.2};
 
   var pForm       = document.getElementById('pForm');
   var pBtn        = document.getElementById('pBtn');
