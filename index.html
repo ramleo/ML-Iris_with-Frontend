@@ -695,6 +695,26 @@
       return '<tr><td class="run-col">'+(i+1)+'</td>'+cells.join('')+'<td class="pred-col">'+String(e.prediction)+'</td>'+predExtra+'</tr>';
     }).join('');
   }
+
+  function clearAllFields() {
+    document.querySelectorAll('#pForm .inp').forEach(function(el) {
+      if (el.tagName === 'SELECT') { el.selectedIndex = 0; }
+      else { el.value = ''; }
+      el.dispatchEvent(new Event('input'));
+    });
+  }
+
+  function fillSample() {
+    var sd = {"SepalLengthCm": 5.1, "SepalWidthCm": 3.5, "PetalLengthCm": 1.4, "PetalWidthCm": 0.2};
+    Object.keys(sd).forEach(function(name) {
+      var el = document.querySelector('#pForm [name="' + name + '"]');
+      if (!el) return;
+      el.value = sd[name];
+      el.dispatchEvent(new Event('input'));
+      el.dispatchEvent(new Event('change'));
+    });
+  }
+
   function clearHistory(){ _history=[]; document.getElementById('histSection').style.display='none'; }
 
   function showError(msg) {
