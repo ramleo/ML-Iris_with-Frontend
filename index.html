@@ -705,6 +705,9 @@
       else { el.value = ''; }
       el.dispatchEvent(new Event('input'));
     });
+    emptyState.style.display  = 'flex';
+    resultState.style.display = 'none';
+    if (typeof errState !== 'undefined') errState.style.display = 'none';
   }
 
   function fillSample() {
